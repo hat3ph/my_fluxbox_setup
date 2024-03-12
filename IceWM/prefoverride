@@ -1,0 +1,53 @@
+#  Command to shutdown the system.
+ShutdownCommand="test -e /run/systemd/system && systemctl poweroff || sudo -n /sbin/poweroff"
+ 
+#  Command to reboot the system.
+RebootCommand="test -e /run/systemd/system && systemctl reboot || sudo -n /sbin/reboot"
+ 
+#  Command to lock display/screensaver.
+# LockCommand="xscreensaver-command -lock"
+ 
+#  Command to send the system to standby mode.
+# SuspendCommand="test -e /run/systemd/system && systemctl suspend || sudon -n /usr/sbin/pm-suspend"
+ 
+#  Task bar at top of the screen.
+TaskBarAtTop=1 # 0/1
+ 
+#  Clock Date format for tooltip (strftime format string)
+# DateFormat="%c"
+ 
+#  Clock Time format (strftime format string)
+TimeFormat="%R%p"
+ 
+#  Show the window menu item in the program menu.
+ShowWindowList=0 # 0/1
+ 
+#  Smart window placement with minimal overlap.
+SmartPlacement=1 # 0/1
+ 
+#  Snap to nearest screen edge/window when moving windows.
+# SnapMove=1 # 0/1
+ 
+#  Show windows from all workspaces on task bar.
+# TaskBarShowAllWindows=1 # 0/1
+ 
+#  Show application icons in the tray panel.
+TaskBarShowTray=1 # 0/1
+ 
+#  Show mailbox status on task bar.
+TaskBarShowMailboxStatus=0 # 0/1
+ 
+#  Show workspace switching buttons on task bar.
+TaskBarShowWorkspaces=0 # 0/1
+ 
+#  Add a workspace.
+WorkspaceNames=" 1 ", " 2 "
+ 
+#  Menus track mouse even with no mouse buttons held.
+MenuMouseTracking=1 # 0/1
+ 
+#  Desktop background image(s)
+DesktopBackgroundImage="$HOME/Pictures/wallpaper.jpg"
+ 
+#  Resize desktop background to full screen.
+DesktopBackgroundScaled=1 # 0/1
