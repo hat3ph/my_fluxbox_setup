@@ -2,6 +2,7 @@
 
 # optional components installation
 my_icewm_config=yes # set no if just want an empty icewm setup
+icewm_themes=yes # set no if do not want to install extra icewm themes
 audio=yes # set no if do not want to use pipewire audio server
 extra_pkg=no # set no if do not want to install the extra packages
 nm=yes # set no if do not want to use network-manager for network interface management
@@ -22,6 +23,20 @@ install () {
 		cp -r ./icewm/* $HOME/.icewm/
 		chmod +x $HOME/.icewm/startup
 	fi
+
+ 	# install extra IceWM themes
+  	if [[ $icewm_themes == "yes" ]]; then
+		mkdir -p $HOME/.icewm/themes
+  
+  		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
+    		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
+      
+      		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
+		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
+
+  		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
+    		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
+   	fi
 
 	# configure nano with line number
 	if [[ $nano_config == "yes" ]]; then
@@ -70,7 +85,8 @@ install () {
 printf "\n"
 printf "Start installation!!!!!!!!!!!\n"
 printf "88888888888888888888888888888\n"
-printf "My Custom icewm Config  : $my_icewm_config\n"
+printf "My Custom IceWM Config  : $my_icewm_config\n"
+printf "Extra IceWM themes      : $icewm_themes\n"
 printf "Pipewire Audio          : $audio\n"
 printf "Extra Packages          : $extra_pkg\n"
 printf "NetworkManager          : $nm\n"
