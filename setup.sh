@@ -10,7 +10,7 @@ nano_config=no # set no if do not want to configure nano text editor
 install () {
 	# install swaywm and other packages
 	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get install icewm xorg xinit feh lxappearance papirus-icon-theme \
+	sudo apt-get install icewm xorg xinit qt5ct lxappearance papirus-icon-theme \
 		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less \
 		software-properties-gtk policykit-1-gnome dex -y
 
