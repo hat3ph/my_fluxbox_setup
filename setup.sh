@@ -20,7 +20,7 @@ install () {
 		#mkdir -p $HOME/{Documents,Downloads,Music,Pictures,Videos}
 		mkdir -p $HOME/.icewm
 		cp -r ./icewm/* $HOME/.icewm/
-		#chmod +x $HOME/.config/i3/scripts/*.sh
+		chmod +x $HOME/.icewm/startup
 	fi
 
 	# configure nano with line number
