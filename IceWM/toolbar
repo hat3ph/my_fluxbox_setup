@@ -1,0 +1,4 @@
+prog XTerm xterm xterm
+prog Thunar thunar thunar
+prog Geany ! geany
+prog Firefox firefox firefox
