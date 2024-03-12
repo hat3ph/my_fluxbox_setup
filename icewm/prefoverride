@@ -21,12 +21,15 @@ TimeFormat="%R%p"
  
 #  Show the window menu item in the program menu.
 ShowWindowList=0 # 0/1
+
+#  Show program submenu in the program menu.
+ShowProgramsMenu=0
  
 #  Smart window placement with minimal overlap.
 SmartPlacement=1 # 0/1
  
 #  Snap to nearest screen edge/window when moving windows.
-# SnapMove=1 # 0/1
+SnapMove=1 # 0/1
  
 #  Show windows from all workspaces on task bar.
 # TaskBarShowAllWindows=1 # 0/1
@@ -51,3 +54,6 @@ DesktopBackgroundImage="$HOME/Pictures/wallpaper.jpg"
  
 #  Resize desktop background to full screen.
 DesktopBackgroundScaled=1 # 0/1
+
+#  Icon search path (colon separated).
+IconPath=”/usr/local/share/icons:/usr/local/share/pixmaps:/usr/share/icons:/usr/share/pixmaps:$HOME/.icons:”
