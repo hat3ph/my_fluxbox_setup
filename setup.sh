@@ -2,6 +2,7 @@
 
 # optional components installation
 my_icewm_config=yes # set no if just want an empty icewm setup
+firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
 audio=yes # set no if do not want to use pipewire audio server
 extra_pkg=no # set no if do not want to install the extra packages
@@ -15,6 +16,20 @@ install () {
 		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less \
 		software-properties-gtk policykit-1-gnome dex -y
   	echo "icewm-session" > $HOME/.xinitrc
+
+   	# install firefox without snap
+    	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+    	if [[ $firefox_deb == "yes" ]]; then
+		sudo install -d -m 0755 /etc/apt/keyrings
+		wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+		echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+		echo '
+		Package: *
+		Pin: origin packages.mozilla.org
+		Pin-Priority: 1000
+		' | sudo tee /etc/apt/preferences.d/mozilla
+		sudo apt update && sudo apt install firefox
+     	fi
 
 	# copy my icewm configuration
 	if [[ $my_icewm_config == "yes" ]]; then
@@ -87,6 +102,7 @@ printf "\n"
 printf "Start installation!!!!!!!!!!!\n"
 printf "88888888888888888888888888888\n"
 printf "My Custom IceWM Config  : $my_icewm_config\n"
+printf "Firefox as DEB packages : $firefox_deb\n"
 printf "Extra IceWM themes      : $icewm_themes\n"
 printf "Pipewire Audio          : $audio\n"
 printf "Extra Packages          : $extra_pkg\n"
