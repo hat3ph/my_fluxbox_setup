@@ -5,7 +5,7 @@ my_icewm_config=yes # set no if just want an empty icewm setup
 firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
 audio=yes # set no if do not want to use pipewire audio server
-extra_pkg=no # set no if do not want to install the extra packages
+extra_pkg=yes # set no if do not want to install the extra packages
 nm=yes # set no if do not want to use network-manager for network interface management
 nano_config=no # set no if do not want to configure nano text editor
 
