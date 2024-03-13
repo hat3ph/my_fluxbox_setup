@@ -20,15 +20,15 @@ install () {
    	# install firefox without snap
     	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
     	if [[ $firefox_deb == "yes" ]]; then
-		sudo install -d -m 0755 /etc/apt/keyrings
-		wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-		echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
-		echo '
-		Package: *
-		Pin: origin packages.mozilla.org
-		Pin-Priority: 1000
-		' | sudo tee /etc/apt/preferences.d/mozilla
-		sudo apt update && sudo apt install firefox
+			sudo install -d -m 0755 /etc/apt/keyrings
+			wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+			echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+			echo '
+			Package: *
+			Pin: origin packages.mozilla.org
+			Pin-Priority: 1000
+			' | sudo tee /etc/apt/preferences.d/mozilla
+			sudo apt update && sudo apt install firefox
      	fi
 
 	# copy my icewm configuration
@@ -45,13 +45,13 @@ install () {
 		mkdir -p $HOME/.icewm/themes
   
   		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
-    		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
+    	cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
       
-      		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
+      	git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
 		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
 
   		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
-    		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
+    	cp -r /tmp/Arc-Dark $HOME/.icewm/themes
    	fi
 
 	# configure nano with line number
@@ -69,6 +69,8 @@ install () {
 		else
 			sudo apt-get install pipewire pipewire-media-session pulseaudio pulseaudio-utils pavucontrol pnmixer -y
 		fi
+		mkdir -p $HOME/.config/pnmixer
+		cp ./config/pnmixer $HOME/.config/pnmixer/config
 	fi
 
 	# optional to insstall the extra packages
