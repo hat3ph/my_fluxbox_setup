@@ -57,3 +57,7 @@ DesktopBackgroundScaled=1 # 0/1
 
 #  Icon search path (colon separated).
 IconPath=”/usr/local/share/icons:/usr/local/share/pixmaps:/usr/share/icons:/usr/share/pixmaps:$HOME/.icons:”
+
+# Open the address bar in the task bar where a command can be typed
+KeySysAddressBar="Alt+Space"
+
