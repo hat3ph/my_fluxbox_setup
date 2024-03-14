@@ -1,0 +1,6 @@
+prog Terminal ! x-terminal-emulator -ls
+prog "Web Browser" ! x-www-browser
+
+includeprog icewm-menu-fdo --no-sep-others --seps --no-sub-cats
+#menuprog Monitors ../devices/computer icewm-menu-xrandr
+#menufile Toolbar folder toolbar
