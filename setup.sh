@@ -18,7 +18,11 @@ install () {
 		policykit-1-gnome dex gpicview geany gv -y
   	echo "icewm-session" > $HOME/.xinitrc
 
-	# set gtk+2 and gtk+3 themes
+	# install Nordic gtk theme https://github.com/EliverLara/Nordic
+	mkdir -p $HOME/.themes
+	wget -P /tmp https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
+	tar -xvf /tmp/Nordic.tar.xz -C $HOME/.themes
+
 	mkdir -p $HOME/.config/gtk-3.0
 	cp ./config/gtk2 $HOME/.config/.gtkrc-2.0
 	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
