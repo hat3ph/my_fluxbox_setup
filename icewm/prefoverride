@@ -1,63 +1,73 @@
-#  Command to shutdown the system.
-ShutdownCommand="test -e /run/systemd/system && systemctl poweroff || sudo -n /sbin/poweroff"
- 
-#  Command to reboot the system.
-RebootCommand="test -e /run/systemd/system && systemctl reboot || sudo -n /sbin/reboot"
- 
-#  Command to lock display/screensaver.
-# LockCommand="xscreensaver-command -lock"
- 
-#  Command to send the system to standby mode.
-# SuspendCommand="test -e /run/systemd/system && systemctl suspend || sudon -n /usr/sbin/pm-suspend"
- 
-#  Task bar at top of the screen.
-TaskBarAtTop=1 # 0/1
- 
-#  Clock Date format for tooltip (strftime format string)
-# DateFormat="%c"
- 
-#  Clock Time format (strftime format string)
+# Refer master preferences at /usr/share/icewm/preferences
+#
+# FOCUS AND BEHAVIOR
+#
+Splash="/usr/share/icewm/IceWM.jpg"
+SmartPlacement=1
+MenuMouseTracking=1
+SnapMove=1
+
+#
+# QUICK SWITCH
+#
+QuickSwitch=1
+
+#
+# TASK BAR
+#
+TaskBarAtTop=1
+TaskBarShowMailboxStatus=0
+TaskBarShowWorkspaces=0
+#TaskBarShowWindows=1
+#TaskBarShowAllWindows=1
+TaskBarShowTray=1
+#TaskBarUseMouseWheel=1
 TimeFormat="%R%p"
- 
-#  Show the window menu item in the program menu.
-ShowWindowList=0 # 0/1
+#NetworkStatusDevice=”eth0 wlan0”
 
-#  Show program submenu in the program menu.
+#
+# MENU
+#
 ShowProgramsMenu=0
- 
-#  Smart window placement with minimal overlap.
-SmartPlacement=1 # 0/1
- 
-#  Snap to nearest screen edge/window when moving windows.
-SnapMove=1 # 0/1
- 
-#  Show windows from all workspaces on task bar.
-# TaskBarShowAllWindows=1 # 0/1
- 
-#  Show application icons in the tray panel.
-TaskBarShowTray=1 # 0/1
- 
-#  Show mailbox status on task bar.
-TaskBarShowMailboxStatus=0 # 0/1
- 
-#  Show workspace switching buttons on task bar.
-TaskBarShowWorkspaces=0 # 0/1
- 
-#  Add a workspace.
-WorkspaceNames=" 1 ", " 2 "
- 
-#  Menus track mouse even with no mouse buttons held.
-MenuMouseTracking=1 # 0/1
- 
-#  Desktop background image(s)
-DesktopBackgroundImage="$HOME/Pictures/wallpaper.jpg"
- 
-#  Resize desktop background to full screen.
-DesktopBackgroundScaled=1 # 0/1
+ShowSettingsMenu=0
+ShowThemesMenu=1
+ShowWindowList=0
+ShowHelp=0
+ShowFocusModeMenu=0
 
-#  Icon search path (colon separated).
+#
+# WORKSPACES
+#
+WorkspaceNames=" 1 ", " 2 "
+
+#
+# PATHS
+#
 IconPath=”/usr/local/share/icons:/usr/local/share/pixmaps:/usr/share/icons:/usr/share/pixmaps:$HOME/.icons:”
 
-# Open the address bar in the task bar where a command can be typed
-KeySysAddressBar="Alt+Space"
+#
+# PROGRAMS
+#
+LockCommand="xscreensaver-command -lock"
+ShutdownCommand="test -e /run/systemd/system && systemctl poweroff || sudo -n /sbin/poweroff"
+RebootCommand="test -e /run/systemd/system && systemctl reboot || sudo -n /sbin/reboot"
 
+#
+# DESKTOP BACKGROUND
+#
+DesktopBackgroundImage="/usr/share/icewm/IceWM.jpg"
+#DesktopBackgroundScaled=1
+DesktopBackgroundCenter=0
+
+#
+# KEYBOARD
+#
+KeySysAddressBar="Alt+Space"
+KeySysDialog="Alt+Del"
+#KeySysHideAll="Alt+Shift+F11"
+KeySysMenu="Ctrl+Esc"
+KeySysMinimizeAll="Alt+Shift+Del"
+KeyWinClose="Alt+F4"
+KeyWinFullscreen="Alt+F11"
+KeyWinMaximize="Alt+F10"
+KeyWinMinimize="Alt+F9"
