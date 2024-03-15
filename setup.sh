@@ -13,9 +13,9 @@ nano_config=no # set no if do not want to configure nano text editor
 install () {
 	# install IceWM and other packages
 	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get install icewm xorg xinit lxterminal lxappearance papirus-icon-theme \
-		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less \
-		software-properties-gtk policykit-1-gnome dex gpicview geany gv -y
+	sudo apt-get install icewm xorg xinit lxterminal lxappearance papirus-icon-theme xdg-utils \
+		xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
+		policykit-1-gnome dex gpicview geany gv -y
   	echo "icewm-session" > $HOME/.xinitrc
 
 	# set gtk+2 and gtk+3 themes
@@ -25,16 +25,15 @@ install () {
 
    	# install firefox without snap
     # https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
-    if [[ $firefox_deb == "yes" ]]; then
+	if [[ $firefox_deb == "yes" ]]; then
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			sudo install -d -m 0755 /etc/apt/keyrings
-			wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-			echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
-			echo '
-			Package: *
-			Pin: origin packages.mozilla.org
-			Pin-Priority: 1000
-			' | sudo tee /etc/apt/preferences.d/mozilla
+			wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | \
+				sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+			echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
+				sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+			echo -e "Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000" | \
+				sudo tee /etc/apt/preferences.d/mozilla
 			sudo apt-get update && sudo apt-get install firefox
 		else
 			sudo apt-get install firefox-esr
@@ -53,16 +52,16 @@ install () {
  	# install extra IceWM themes
   	if [[ $icewm_themes == "yes" ]]; then
 		mkdir -p $HOME/.icewm/themes
-  
-  		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
-    		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
-      
-      		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
-		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
 
-  		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
-    		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
-   	fi
+		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
+		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
+		
+		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
+		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
+		
+		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
+		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
+	fi
 
 	# configure nano with line number
 	if [[ $nano_config == "yes" ]]; then
