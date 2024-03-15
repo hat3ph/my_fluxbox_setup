@@ -23,25 +23,7 @@ install () {
 	cp ./config/gtk2 $HOME/.config/.gtkrc-2.0
 	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
 
-   	# install firefox without snap
-    # https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
-	if [[ $firefox_deb == "yes" ]]; then
-		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
-			sudo install -d -m 0755 /etc/apt/keyrings
-			wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | \
-				sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-			echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
-				sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
-			echo -e "Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000" | \
-				sudo tee /etc/apt/preferences.d/mozilla
-			sudo apt-get update && sudo apt-get install firefox -y
-		else
-			sudo apt-get install firefox-esr -y
-			sed -i 's/firefox/firefox-esr/g' $HOME/.icewm/{menu,toolbar}
-		fi
-    fi
-
-	# copy my icewm configuration
+ 	# copy my icewm configuration
 	if [[ $my_icewm_config == "yes" ]]; then
 		if [[ -d $HOME/.icewm ]]; then mv $HOME/.icewm $HOME/.icewm_`date +%Y_%d_%m_%H_%M_%S`; fi
 		#mkdir -p $HOME/{Documents,Downloads,Music,Pictures,Videos}
@@ -49,17 +31,17 @@ install () {
 		cp -r ./icewm/* $HOME/.icewm/
 		chmod +x $HOME/.icewm/startup
 	fi
-
+ 
  	# install extra IceWM themes
   	if [[ $icewm_themes == "yes" ]]; then
 		mkdir -p $HOME/.icewm/themes
 
 		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
 		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
-		
+  
 		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
 		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
-		
+  
 		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
 		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
 	fi
@@ -95,6 +77,24 @@ install () {
 		sudo apt-get install sddm -y
 	fi
 
+    	# install firefox without snap
+    	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+	if [[ $firefox_deb == "yes" ]]; then
+		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
+			sudo install -d -m 0755 /etc/apt/keyrings
+			wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | \
+				sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+			echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | \
+				sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
+			echo -e "Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000" | \
+				sudo tee /etc/apt/preferences.d/mozilla
+			sudo apt-get update && sudo apt-get install firefox -y
+		else
+			sudo apt-get install firefox-esr -y
+			sed -i 's/firefox/firefox-esr/g' $HOME/.icewm/{menu,toolbar}
+		fi
+  	fi
+
 	# optional install NetworkManager
 	if [[ $nm == yes ]]; then
 	sudo apt-get install network-manager network-manager-gnome -y
@@ -109,7 +109,7 @@ install () {
 			sudo cp /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf.bak
 			sudo sed -i 's/managed=false/managed=true/g' /etc/NetworkManager/NetworkManager.conf
 			sudo mv /etc/network/interfaces /etc/network/interfaces.bak
-			sudo cp ./config/interfaces /etc/network/interfaces
+			head -9 /etc/network/interfaces.bak | sudo tee /etc/network/interfaces
 			sudo systemctl disable networking.service
 		fi
 	fi
