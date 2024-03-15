@@ -1,5 +1,4 @@
-prog XTerm xterm xterm
-#prog LxTerminal lxterminal lxterminal
+prog Terminal ! lxterminal
 prog Thunar thunar thunar
 prog Geany ! geany
 prog Firefox firefox firefox

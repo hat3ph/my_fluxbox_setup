@@ -5,21 +5,27 @@ my_icewm_config=yes # set no if just want an empty icewm setup
 firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
 audio=yes # set no if do not want to use pipewire audio server
-extra_pkg=yes # set no if do not want to install the extra packages
+thunar=yes # set no if do not want to install thunar file manager
+sddm=yes # set no if do not want to install SDDM login manager
 nm=yes # set no if do not want to use network-manager for network interface management
 nano_config=no # set no if do not want to configure nano text editor
 
 install () {
 	# install IceWM and other packages
 	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get install icewm xorg xinit xterm lxappearance papirus-icon-theme \
+	sudo apt-get install icewm xorg xinit lxterminal lxappearance papirus-icon-theme \
 		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less \
-		software-properties-gtk policykit-1-gnome dex -y
+		software-properties-gtk policykit-1-gnome dex gpicview geany gv -y
   	echo "icewm-session" > $HOME/.xinitrc
 
+	# set gtk+2 and gtk+3 themes
+	mkdir -p $HOME/.config/gtk-3.0
+	cp ./config/gtk2 $HOME/.config/.gtkrc-2.0
+	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
+
    	# install firefox without snap
-    	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
-    	if [[ $firefox_deb == "yes" ]]; then
+    # https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+    if [[ $firefox_deb == "yes" ]]; then
 		sudo install -d -m 0755 /etc/apt/keyrings
 		wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 		echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
@@ -29,7 +35,7 @@ install () {
 		Pin-Priority: 1000
 		' | sudo tee /etc/apt/preferences.d/mozilla
 		sudo apt update && sudo apt install firefox
-     	fi
+    fi
 
 	# copy my icewm configuration
 	if [[ $my_icewm_config == "yes" ]]; then
@@ -73,10 +79,16 @@ install () {
 		cp ./config/pnmixer $HOME/.config/pnmixer/config
 	fi
 
-	# optional to insstall the extra packages
-	if [[ $extra_pkg == "yes" ]]; then
-		sudo apt-get install thunar gvfs gvfs-backends thunar-archive-plugin thunar-media-tags-plugin avahi-daemon \
-			gpicview geany sddm gv -y
+	# optional to install thunar file manager
+	if [[ $thunar == "yes" ]]; then
+		sudo apt-get install thunar gvfs gvfs-backends thunar-archive-plugin thunar-media-tags-plugin avahi-daemon -y
+		mkdir -p $HOME/.config/xfce4
+		echo "TerminalEmulator=lxterminal" > $HOME/.config/xfce4/helpers.rc
+	fi
+
+	# optional to install SDDM login manager
+	if [[ $sddm == "yes" ]]; then
+		sudo apt-get install sddm -y
 	fi
 
 	# optional install NetworkManager
@@ -107,7 +119,8 @@ printf "My Custom IceWM Config  : $my_icewm_config\n"
 printf "Firefox as DEB packages : $firefox_deb\n"
 printf "Extra IceWM themes      : $icewm_themes\n"
 printf "Pipewire Audio          : $audio\n"
-printf "Extra Packages          : $extra_pkg\n"
+printf "Thunar File Manager     : $thunar\n"
+printf "SDDM Login Manager      : $sddm\n"
 printf "NetworkManager          : $nm\n"
 printf "Nano's configuration    : $nano_config\n"
 printf "88888888888888888888888888888\n"
