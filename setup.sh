@@ -27,6 +27,11 @@ install () {
 	cp ./config/gtk2 $HOME/.config/.gtkrc-2.0
 	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
 
+	# add additional geany colorscheme
+	mkdir -p $HOME/.config/geany/colorschemes
+	git clone https://github.com/geany/geany-themes.git /tmp/geany-themes
+	cp -r /tmp/geany-themes/colorschemes/* $HOME/.config/geany/colorschemes/
+
  	# copy my icewm configuration
 	if [[ $my_icewm_config == "yes" ]]; then
 		if [[ -d $HOME/.icewm ]]; then mv $HOME/.icewm $HOME/.icewm_`date +%Y_%d_%m_%H_%M_%S`; fi
