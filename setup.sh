@@ -6,7 +6,7 @@ firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
 audio=yes # set no if do not want to use pipewire audio server
 thunar=yes # set no if do not want to install thunar file manager
-sddm=yes # set no if do not want to install SDDM login manager
+login_mgr=yes # set no if do not want to install SDDM login manager
 nm=yes # set no if do not want to use network-manager for network interface management
 nano_config=no # set no if do not want to configure nano text editor
 
@@ -81,9 +81,13 @@ install () {
 		echo "TerminalEmulator=lxterminal" > $HOME/.config/xfce4/helpers.rc
 	fi
 
-	# optional to install SDDM login manager
-	if [[ $sddm == "yes" ]]; then
-		sudo apt-get install sddm -y
+	# optional to install SDDM or LightDM login manager
+	if [[ $login_mgr == "yes"]]; then
+		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
+			sudo apt-get install sddm -y
+		else
+			sudo apt-get install lightdm lightdm-gtk-greeter-settings -y
+		fi
 	fi
 
     	# install firefox without snap
@@ -135,7 +139,7 @@ printf "Firefox as DEB packages : $firefox_deb\n"
 printf "Extra IceWM themes      : $icewm_themes\n"
 printf "Pipewire Audio          : $audio\n"
 printf "Thunar File Manager     : $thunar\n"
-printf "SDDM Login Manager      : $sddm\n"
+printf "Login Manager           : $login_mgr\n"
 printf "NetworkManager          : $nm\n"
 printf "Nano's configuration    : $nano_config\n"
 printf "88888888888888888888888888888\n"
