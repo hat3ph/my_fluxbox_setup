@@ -57,7 +57,7 @@ RebootCommand="test -e /run/systemd/system && systemctl reboot || sudo -n /sbin/
 #
 DesktopBackgroundImage="/usr/share/icewm/IceWM.jpg"
 #DesktopBackgroundScaled=1
-DesktopBackgroundCenter=0
+DesktopBackgroundCenter=1
 
 #
 # KEYBOARD

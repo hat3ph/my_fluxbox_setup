@@ -1,4 +1,4 @@
 prog Terminal ! lxterminal
-prog Thunar thunar thunar
-prog Geany ! geany
-prog Firefox firefox firefox
+prog "File Manager" thunar thunar
+prog "Text Editor" ! geany
+prog "Web Browser" firefox firefox

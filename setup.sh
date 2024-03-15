@@ -34,9 +34,10 @@ install () {
 				sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null
 			echo -e "Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000" | \
 				sudo tee /etc/apt/preferences.d/mozilla
-			sudo apt-get update && sudo apt-get install firefox
+			sudo apt-get update && sudo apt-get install firefox -y
 		else
-			sudo apt-get install firefox-esr
+			sudo apt-get install firefox-esr -y
+			sed -i 's/firefox/firefox-esr/g' $HOME/.icewm/{menu,toolbar}
 		fi
     fi
 
