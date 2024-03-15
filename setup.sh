@@ -104,7 +104,6 @@ install () {
 			done
 			echo -e "# Let NetworkManager manage all devices on this system\nnetwork:\n  version: 2\n  renderer: NetworkManager" | \
 			sudo tee /etc/netplan/01-network-manager-all.yaml
-			sudo systemctl disable systemd-networkd-wait-online.service
 		else
 			sudo cp /etc/NetworkManager/NetworkManager.conf /etc/NetworkManager/NetworkManager.conf.bak
 			sudo sed -i 's/managed=false/managed=true/g' /etc/NetworkManager/NetworkManager.conf
@@ -114,6 +113,9 @@ install () {
 		fi
 	fi
 
+	# disable unwanted services
+ 	sudo systemctl disable systemd-networkd-wait-online.service
+  	sudo systemctl disable multipathd.service
 }
 
 printf "\n"
