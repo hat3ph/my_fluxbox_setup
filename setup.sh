@@ -82,7 +82,7 @@ install () {
 	fi
 
 	# optional to install SDDM or LightDM login manager
-	if [[ $login_mgr == "yes"]]; then
+	if [[ $login_mgr == "yes" ]]; then
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			sudo apt-get install sddm -y
 		else
