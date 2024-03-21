@@ -24,7 +24,8 @@ install () {
 	tar -xvf /tmp/Nordic.tar.xz -C $HOME/.themes
 
 	mkdir -p $HOME/.config/gtk-3.0
-	cp ./config/gtk2 $HOME/.config/.gtkrc-2.0
+	cp ./config/gtk2 $HOME/.gtkrc-2.0
+	sed -i "s/administrator/"$USER"/g" $HOME/.gtkrc-2.0
 	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
 
 	# add additional geany colorscheme
