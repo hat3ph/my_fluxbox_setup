@@ -24,6 +24,10 @@ TaskBarShowTray=1
 #TaskBarUseMouseWheel=1
 TimeFormat="%R%p"
 #NetworkStatusDevice=”eth0 wlan0”
+MenuIconSize=16
+SmallIconSize=24
+LargeIconSize=32
+HugeIconSize=48
 
 #
 # MENU
