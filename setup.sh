@@ -13,8 +13,8 @@ nano_config=no # set no if do not want to configure nano text editor
 install () {
 	# install IceWM and other packages
 	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get install icewm xorg xinit lxterminal lxappearance papirus-icon-theme xdg-utils \
-		xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
+	sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
+ 		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
 		policykit-1-gnome dex gpicview geany gv -y
   	echo "icewm-session" > $HOME/.xinitrc
 
