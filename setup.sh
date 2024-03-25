@@ -15,7 +15,7 @@ install () {
 	sudo apt-get update && sudo apt-get upgrade -y
 	sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
  		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
-		policykit-1-gnome dex gpicview geany gv -y
+		policykit-1-gnome dex gpicview geany gv flameshot -y
   	echo "icewm-session" > $HOME/.xinitrc
 
 	# install Nordic gtk theme https://github.com/EliverLara/Nordic
