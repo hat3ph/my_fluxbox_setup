@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # optional components installation
+my_icewm_install=yes # set no if just want to install icewm
 my_icewm_config=yes # set no if just want an empty icewm setup
 firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
@@ -12,11 +13,13 @@ nano_config=no # set no if do not want to configure nano text editor
 
 install () {
 	# install IceWM and other packages
-	sudo apt-get update && sudo apt-get upgrade -y
-	sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
- 		xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
-		policykit-1-gnome dex gpicview geany gv flameshot -y
-  	echo "icewm-session" > $HOME/.xinitrc
+	if [[ $my_icewm_install == "yes" ]]; then
+		sudo apt-get update && sudo apt-get upgrade -y
+		sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
+			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
+			policykit-1-gnome dex gpicview geany gv flameshot -y
+		echo "icewm-session" > $HOME/.xinitrc
+	fi
 
 	# install Nordic gtk theme https://github.com/EliverLara/Nordic
 	mkdir -p $HOME/.themes
@@ -91,8 +94,8 @@ install () {
 		fi
 	fi
 
-    	# install firefox without snap
-    	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
+	# install firefox without snap
+	# https://www.omgubuntu.co.uk/2022/04/how-to-install-firefox-deb-apt-ubuntu-22-04
 	if [[ $firefox_deb == "yes" ]]; then
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			sudo install -d -m 0755 /etc/apt/keyrings
@@ -137,6 +140,7 @@ install () {
 printf "\n"
 printf "Start installation!!!!!!!!!!!\n"
 printf "88888888888888888888888888888\n"
+printf "My IceWM Install        : $my_icewm_install\n"
 printf "My Custom IceWM Config  : $my_icewm_config\n"
 printf "Firefox as DEB packages : $firefox_deb\n"
 printf "Extra IceWM themes      : $icewm_themes\n"
