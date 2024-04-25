@@ -3,8 +3,9 @@
 # enable XDG autostart
 /usr/bin/dex -a &
 
-# enable screensaver
-/usr/bin/xscreensaver --nosplash &
+# enable xscreensaver and lock screen
+#/usr/bin/xscreensaver -nosplash &
+#/usr/bin/xss-lock -- /usr/bin/xscreensaver-command -lock &
 
 # start pulseaudio audio GUI tray
 /usr/bin/sleep 1 && /usr/bin/pnmixer &
