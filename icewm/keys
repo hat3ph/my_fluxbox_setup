@@ -1,1 +1,5 @@
+key "Super+t" /usr/bin/lxterminal
+key "Super+f" /usr/bin/thunar
+#key "super+r" /usr/bin/rofi -show drun
+#key "super+p" /usr/bin/rofi -show power-menu -modi "power-menu:$HOME/.local/bin/rofi-power-menu --choices=lockscreen/logout/reboot/shutdown --confirm=''"
 key "Print" /usr/bin/flameshot gui

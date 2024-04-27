@@ -5,6 +5,8 @@ my_icewm_install=yes # set no if just want to install icewm
 my_icewm_config=yes # set no if just want an empty icewm setup
 firefox_deb=yes # install firefox using the deb package
 icewm_themes=yes # set no if do not want to install extra icewm themes
+theming=yes # set yes to install custom theming
+rofi_power_menu_config=yes # set yes to install rofi-power-menu
 audio=yes # set no if do not want to use pipewire audio server
 thunar=yes # set no if do not want to install thunar file manager
 login_mgr=yes # set no if do not want to install SDDM login manager
@@ -16,25 +18,46 @@ install () {
 	if [[ $my_icewm_install == "yes" ]]; then
 		sudo apt-get update && sudo apt-get upgrade -y
 		sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
-			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk \
+			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk xscreensaver \
 			policykit-1-gnome dex gpicview geany gv flameshot -y
 		echo "icewm-session" > $HOME/.xinitrc
 	fi
 
-	# install Nordic gtk theme https://github.com/EliverLara/Nordic
-	mkdir -p $HOME/.themes
-	wget -P /tmp https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
-	tar -xvf /tmp/Nordic.tar.xz -C $HOME/.themes
+	# install theming
+	if [[ $theming == "yes" ]]; then
+		# install Nordic gtk theme https://github.com/EliverLara/Nordic
+		mkdir -p $HOME/.themes
+		wget -P /tmp https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
+		tar -xvf /tmp/Nordic.tar.xz -C $HOME/.themes
 
-	mkdir -p $HOME/.config/gtk-3.0
-	cp ./config/gtk2 $HOME/.gtkrc-2.0
-	sed -i "s/administrator/"$USER"/g" $HOME/.gtkrc-2.0
-	cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
+		mkdir -p $HOME/.config/gtk-3.0
+		cp ./config/gtk2 $HOME/.gtkrc-2.0
+		sed -i "s/administrator/"$USER"/g" $HOME/.gtkrc-2.0
+		cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
 
-	# add additional geany colorscheme
-	mkdir -p $HOME/.config/geany/colorschemes
-	git clone https://github.com/geany/geany-themes.git /tmp/geany-themes
-	cp -r /tmp/geany-themes/colorschemes/* $HOME/.config/geany/colorschemes/
+		# add additional geany colorscheme
+		mkdir -p $HOME/.config/geany/colorschemes
+		git clone https://github.com/geany/geany-themes.git /tmp/geany-themes
+		cp -r /tmp/geany-themes/colorschemes/* $HOME/.config/geany/colorschemes/
+	fi
+
+	# install rofi-power-menu
+ 	if [[ $rofi_power_menu_config == "yes" ]]; then
+  		mkdir -p $HOME/.local/bin
+    	git clone https://github.com/jluttine/rofi-power-menu /tmp/rofi-power-menu
+        cp /tmp/rofi-power-menu/rofi-power-menu $HOME/.local/bin
+        chmod +x $HOME/.local/bin/rofi-power-menu
+	 	# fix issue cannot logout issue with SDDM
+   		# https://github.com/jluttine/rofi-power-menu/issues/22
+	 	sed -i 's/loginctl terminate-session ${XDG_SESSION_ID-}/pkill -u $USER/g' $HOME/.local/bin/rofi-power-menu
+
+        # install Nerd fonts for rofi-power-menu
+        mkdir -p $HOME/.fonts
+        wget -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.0/JetBrainsMono.zip
+        unzip /tmp/JetBrainsMono.zip -d /tmp/JetBrainsMono
+		cp /tmp/JetBrainsMono/*.ttf $HOME/.fonts/
+        fc-cache -fv
+	fi
 
  	# copy my icewm configuration
 	if [[ $my_icewm_config == "yes" ]]; then
@@ -70,7 +93,7 @@ install () {
 	if [[ $audio == "yes" ]]; then
 		# install pulseaudio-utils to audio management for Ubuntu 22.04 due to out-dated wireplumber packages
 		if [[ ! $(cat /etc/os-release | awk 'NR==3' | cut -c12- | sed s/\"//g) == "22.04" ]]; then
-			sudo apt-get install pipewire pipewire-pulse wireplumber pavucontrol pnmixer -y
+			sudo apt-get install pipewire pipewire-pulse wireplumber pavucontrol-qt pnmixer -y
 		else
 			sudo apt-get install pipewire pipewire-media-session pulseaudio pulseaudio-utils pavucontrol pnmixer -y
 		fi
@@ -146,6 +169,8 @@ printf "Firefox as DEB packages : $firefox_deb\n"
 printf "Extra IceWM themes      : $icewm_themes\n"
 printf "Pipewire Audio          : $audio\n"
 printf "Thunar File Manager     : $thunar\n"
+printf "Rofi power menu         : $rofi_power_menu_config\n"
+printf "Custom theming          : $theming\n"
 printf "Login Manager           : $login_mgr\n"
 printf "NetworkManager          : $nm\n"
 printf "Nano's configuration    : $nano_config\n"
