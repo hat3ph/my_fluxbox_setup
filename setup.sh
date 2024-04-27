@@ -45,7 +45,7 @@ install () {
  	if [[ $rofi_power_menu_config == "yes" ]]; then
 		sudo apt-get install rofi -y
 		mkdir -p $HOME/.local/bin
-		cp ./config/power.sh $HOME/.local/bin
+		cp ./bin/power.sh $HOME/.local/bin
 		chmod +x $HOME/.local/bin/power.sh
 	fi
 
