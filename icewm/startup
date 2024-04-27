@@ -5,7 +5,6 @@
 
 # enable xscreensaver and lock screen
 /usr/bin/sleep 1 && /usr/bin/xscreensaver -nosplash &
-#/usr/bin/sleep 1 && /usr/bin/xss-lock -- /usr/bin/xscreensaver-command -lock &
 
 # start pulseaudio audio GUI tray
 /usr/bin/sleep 1 && /usr/bin/pnmixer &

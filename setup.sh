@@ -41,22 +41,12 @@ install () {
 		cp -r /tmp/geany-themes/colorschemes/* $HOME/.config/geany/colorschemes/
 	fi
 
-	# install rofi-power-menu
+	# install rofi and power menu
  	if [[ $rofi_power_menu_config == "yes" ]]; then
-  		mkdir -p $HOME/.local/bin
-    	git clone https://github.com/jluttine/rofi-power-menu /tmp/rofi-power-menu
-        cp /tmp/rofi-power-menu/rofi-power-menu $HOME/.local/bin
-        chmod +x $HOME/.local/bin/rofi-power-menu
-	 	# fix issue cannot logout issue with SDDM
-   		# https://github.com/jluttine/rofi-power-menu/issues/22
-	 	sed -i 's/loginctl terminate-session ${XDG_SESSION_ID-}/pkill -u $USER/g' $HOME/.local/bin/rofi-power-menu
-
-        # install Nerd fonts for rofi-power-menu
-        mkdir -p $HOME/.fonts
-        wget -P /tmp https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.0/JetBrainsMono.zip
-        unzip /tmp/JetBrainsMono.zip -d /tmp/JetBrainsMono
-		cp /tmp/JetBrainsMono/*.ttf $HOME/.fonts/
-        fc-cache -fv
+		sudo apt-get install rofi -y
+		mkdir -p $HOME/.local/bin
+		cp ./config/power.sh $HOME/.local/bin
+		chmod +x $HOME/.local/bin/power.sh
 	fi
 
  	# copy my icewm configuration
