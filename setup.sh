@@ -39,6 +39,21 @@ install () {
 		mkdir -p $HOME/.config/geany/colorschemes
 		git clone https://github.com/geany/geany-themes.git /tmp/geany-themes
 		cp -r /tmp/geany-themes/colorschemes/* $HOME/.config/geany/colorschemes/
+
+		# install lxterminal dracula theme
+		git clone https://github.com/dracula/lxterminal.git /tmp/lxterminal
+		mkdir -p $HOME/.config/lxterminal/
+		cp /tmp/lxterminal/lxterminal.conf $HOME/.config/lxterminal/
+
+		# install dracula gtk theme
+  		mkdir -p $HOME/.icons
+    	wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
+      	tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
+
+  		# install dracula cursor theme
+		mkdir -p $HOME/.themes
+		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula.tar.xz
+  		tar -xvf /tmp/Dracula.tar.xz -C $HOME/.themes
 	fi
 
 	# install rofi and power menu
@@ -63,13 +78,23 @@ install () {
 		mkdir -p $HOME/.icewm/themes
 
 		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
-		cp -r /tmp/win95-dark $HOME/.icewm/themes && rm $HOME/.icewm/themes/win95-dark/.gitignore
+		cp -r /tmp/win95-dark $HOME/.icewm/themes 
+		rm $HOME/.icewm/themes/win95-dark/.gitignore
+		sudo rm -r $HOME/.icewm/themes/win95-dark/.git
   
 		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
 		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
   
 		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
 		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
+		sudo rm -r $HOME/.icewm/themes/Arc-Dark/.git
+
+		tar -xvf ./config/DraculIce.tar.gz -C $HOME/.icewm/themes
+		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
+			cp $HOME./icewm/themes/DraculIce/taskbar/start_ubuntu.svg $HOME./icewm/themes/DraculIce/taskbar/start.xpm
+		else
+			cp ./config/debian.xpm $HOME./icewm/themes/DraculIce/taskbar/start.xpm
+		fi
 	fi
 
 	# configure nano with line number
