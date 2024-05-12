@@ -19,12 +19,17 @@ install () {
 		sudo apt-get update && sudo apt-get upgrade -y
 		sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
 			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk xscreensaver \
-			policykit-1-gnome dex gpicview geany gv flameshot -y
+			policykit-1-gnome dex gpicview geany gv flameshot feh -y
 		echo "icewm-session" > $HOME/.xinitrc
 	fi
 
 	# install theming
 	if [[ $theming == "yes" ]]; then
+
+		# copy wallpapers
+  		mkdir -p $HOME/Pictures/wallpapers
+   		cp ./wallpapers/* $HOME/Pictures/wallpapers/
+		
 		# install Nordic gtk theme https://github.com/EliverLara/Nordic
 		mkdir -p $HOME/.themes
 		wget -P /tmp https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz

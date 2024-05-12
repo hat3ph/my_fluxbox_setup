@@ -2,7 +2,7 @@
 #
 # FOCUS AND BEHAVIOR
 #
-Splash="/usr/share/icewm/IceWM.jpg"
+#Splash="/usr/share/icewm/IceWM.jpg"
 SmartPlacement=1
 MenuMouseTracking=1
 SnapMove=1
@@ -59,9 +59,9 @@ RebootCommand="test -e /run/systemd/system && systemctl reboot || sudo -n /sbin/
 #
 # DESKTOP BACKGROUND
 #
-DesktopBackgroundImage="/usr/share/icewm/IceWM.jpg"
+#DesktopBackgroundImage="/usr/share/icewm/IceWM.jpg"
 #DesktopBackgroundScaled=1
-DesktopBackgroundCenter=1
+#DesktopBackgroundCenter=1
 
 #
 # KEYBOARD
