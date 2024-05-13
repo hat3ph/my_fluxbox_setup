@@ -52,8 +52,8 @@ install () {
 
 		# install dracula gtk theme
   		mkdir -p $HOME/.icons
-    	wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
-      	tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
+    		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
+      		tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
 
   		# install dracula cursor theme
 		mkdir -p $HOME/.themes
@@ -128,12 +128,12 @@ install () {
 		echo "TerminalEmulator=lxterminal" > $HOME/.config/xfce4/helpers.rc
 	fi
 
-	# optional to install SDDM or LightDM login manager
+	# optional to install SDDM or lxDM login manager
 	if [[ $login_mgr == "yes" ]]; then
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			sudo apt-get install sddm -y
 		else
-			sudo apt-get install lightdm lightdm-gtk-greeter-settings -y
+			sudo apt-get install lxdm -y
 		fi
 	fi
 
