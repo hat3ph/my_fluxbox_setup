@@ -1,26 +1,26 @@
 #!/bin/bash
 
 # optional components installation
-my_icewm_install=yes # set no if just want to install icewm
-my_icewm_config=yes # set no if just want an empty icewm setup
+my_fluxbox_install=yes # set no if just want to install fluxbox
+my_fluxbox_config=yes # set no if just want an empty fluxbox setup
 firefox_deb=yes # install firefox using the deb package
-icewm_themes=yes # set no if do not want to install extra icewm themes
+fluxbox_styles=yes # set no if do not want to install extra fluxbox themes
 theming=yes # set yes to install custom theming
 rofi_power_menu_config=yes # set yes to install rofi-power-menu
 audio=yes # set no if do not want to use pipewire audio server
 thunar=yes # set no if do not want to install thunar file manager
-login_mgr=yes # set no if do not want to install SDDM login manager
+login_mgr=yes # set no if do not want to install SDDM or lxdm login manager
 nm=yes # set no if do not want to use network-manager for network interface management
 nano_config=no # set no if do not want to configure nano text editor
 
 install () {
-	# install IceWM and other packages
-	if [[ $my_icewm_install == "yes" ]]; then
+	# install fluxbox and other packages
+	if [[ $my_fluxbox_install == "yes" ]]; then
 		sudo apt-get update && sudo apt-get upgrade -y
-		sudo apt-get install icewm xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
+		sudo apt-get install fluxbox xorg xinit x11-utils rsyslog logrotate lxterminal lxappearance papirus-icon-theme \
 			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk xscreensaver \
 			policykit-1-gnome dex gpicview geany gv flameshot feh -y
-		echo "icewm-session" > $HOME/.xinitrc
+		echo "startfluxbox" > $HOME/.xinitrc
 	fi
 
 	# install theming
@@ -30,15 +30,10 @@ install () {
   		mkdir -p $HOME/Pictures/wallpapers
    		cp ./wallpapers/* $HOME/Pictures/wallpapers/
 		
-		# install Nordic gtk theme https://github.com/EliverLara/Nordic
+		# install Nordic gtk theme
 		mkdir -p $HOME/.themes
 		wget -P /tmp https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic.tar.xz
 		tar -xvf /tmp/Nordic.tar.xz -C $HOME/.themes
-
-		mkdir -p $HOME/.config/gtk-3.0
-		cp ./config/gtk2 $HOME/.gtkrc-2.0
-		sed -i "s/administrator/"$USER"/g" $HOME/.gtkrc-2.0
-		cp ./config/gtk3 $HOME/.config/gtk-3.0/settings.ini
 
 		# add additional geany colorscheme
 		mkdir -p $HOME/.config/geany/colorschemes
@@ -52,8 +47,8 @@ install () {
 
 		# install dracula gtk theme
   		mkdir -p $HOME/.icons
-    		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
-      		tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
+    	wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
+      	tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
 
   		# install dracula cursor theme
 		mkdir -p $HOME/.themes
@@ -69,18 +64,18 @@ install () {
 		chmod +x $HOME/.local/bin/power.sh
 	fi
 
- 	# copy my icewm configuration
-	if [[ $my_icewm_config == "yes" ]]; then
-		if [[ -d $HOME/.icewm ]]; then mv $HOME/.icewm $HOME/.icewm_`date +%Y_%d_%m_%H_%M_%S`; fi
-		#mkdir -p $HOME/{Documents,Downloads,Music,Pictures,Videos}
-		mkdir -p $HOME/.icewm
-		cp -r ./icewm/* $HOME/.icewm/
-		chmod +x $HOME/.icewm/startup
+ 	# copy my fluxbox configuration
+	if [[ $my_fluxbox_config == "yes" ]]; then
+		if [[ -d $HOME/.fluxbox ]]; then mv $HOME/.fluxbox $HOME/.fluxbox_`date +%Y_%d_%m_%H_%M_%S`; fi
+		mkdir -p $HOME/.fluxbox
+		cp -r ./fluxbox/* $HOME/.fluxbox/
+		sed -i 's/administrator/$USER/g' $HOME/.fluxbox/init
+		sed -i 's/administrator/$USER/g' $HOME/.fluxbox/startup
 	fi
  
- 	# install extra IceWM themes
-  	if [[ $icewm_themes == "yes" ]]; then
-		mkdir -p $HOME/.icewm/themes
+ 	# install extra fluxbox styles
+  	if [[ $fluxbox_styles == "yes" ]]; then
+		mkdir -p $HOME/.fluxbox/styles
 
 		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
 		cp -r /tmp/win95-dark $HOME/.icewm/themes 
@@ -128,7 +123,7 @@ install () {
 		echo "TerminalEmulator=lxterminal" > $HOME/.config/xfce4/helpers.rc
 	fi
 
-	# optional to install SDDM or lxDM login manager
+	# optional to install SDDM or lxdm login manager
 	if [[ $login_mgr == "yes" ]]; then
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			sudo apt-get install sddm -y
@@ -151,7 +146,7 @@ install () {
 			sudo apt-get update && sudo apt-get install firefox -y
 		else
 			sudo apt-get install firefox-esr -y
-			sed -i 's/firefox/firefox-esr/g' $HOME/.icewm/{menu,toolbar}
+			sed -i 's/firefox/firefox-esr/g' $HOME/.fluxbox/keys
 		fi
   	fi
 
@@ -183,10 +178,10 @@ install () {
 printf "\n"
 printf "Start installation!!!!!!!!!!!\n"
 printf "88888888888888888888888888888\n"
-printf "My IceWM Install        : $my_icewm_install\n"
-printf "My Custom IceWM Config  : $my_icewm_config\n"
+printf "My fluxbox Install      : $my_fluxbox_install\n"
+printf "My Custom fluxbox Config: $my_fluxbox_config\n"
 printf "Firefox as DEB packages : $firefox_deb\n"
-printf "Extra IceWM themes      : $icewm_themes\n"
+printf "Extra fluxbox styles    : $fluxbox_styles\n"
 printf "Pipewire Audio          : $audio\n"
 printf "Thunar File Manager     : $thunar\n"
 printf "Rofi power menu         : $rofi_power_menu_config\n"

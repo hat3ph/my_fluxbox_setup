@@ -1,6 +1,0 @@
-prog Terminal ! lxterminal
-prog "Web Browser" ! firefox
-
-includeprog icewm-menu-fdo --no-sep-others --seps --no-sub-cats
-#menuprog Monitors ../devices/computer icewm-menu-xrandr
-#menufile Toolbar folder toolbar
