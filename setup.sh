@@ -76,25 +76,7 @@ install () {
  	# install extra fluxbox styles
   	if [[ $fluxbox_styles == "yes" ]]; then
 		mkdir -p $HOME/.fluxbox/styles
-
-		git clone https://github.com/Brottweiler/win95-dark.git /tmp/win95-dark
-		cp -r /tmp/win95-dark $HOME/.icewm/themes 
-		rm $HOME/.icewm/themes/win95-dark/.gitignore
-		sudo rm -r $HOME/.icewm/themes/win95-dark/.git
-  
-		git clone https://github.com/Vimux/icewm-theme-icepick.git /tmp/icewm-theme-icepick
-		cp -r /tmp/icewm-theme-icepick/IcePick $HOME/.icewm/themes
-  
-		git clone https://github.com/Brottweiler/Arc-Dark.git /tmp/Arc-Dark
-		cp -r /tmp/Arc-Dark $HOME/.icewm/themes
-		sudo rm -r $HOME/.icewm/themes/Arc-Dark/.git
-
-		tar -xvf ./config/DraculIce.tar.gz -C $HOME/.icewm/themes
-		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
-			cp $HOME./icewm/themes/DraculIce/taskbar/start_ubuntu.svg $HOME./icewm/themes/DraculIce/taskbar/start.xpm
-		else
-			cp ./config/debian.xpm $HOME./icewm/themes/DraculIce/taskbar/start.xpm
-		fi
+		tar -zxvf ./styles/Retour.tgz -C $HOME/.fluxbox/styles/
 	fi
 
 	# configure nano with line number
