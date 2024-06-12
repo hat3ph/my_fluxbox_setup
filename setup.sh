@@ -21,6 +21,9 @@ install () {
 			xdg-utils xdg-user-dirs policykit-1 libnotify-bin dunst nano less software-properties-gtk xscreensaver \
 			policykit-1-gnome dex gpicview geany gv flameshot feh -y
 		echo "startfluxbox" > $HOME/.xinitrc
+  		# enable acpid
+    		sudo apt-get install acpid -y
+      		sudo systemctl enable acpid
 	fi
 
 	# install theming
@@ -47,8 +50,8 @@ install () {
 
 		# install dracula gtk theme
   		mkdir -p $HOME/.icons
-    	wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
-      	tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
+    		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
+      		tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
 
   		# install dracula cursor theme
 		mkdir -p $HOME/.themes
@@ -134,7 +137,7 @@ install () {
 
 	# optional install NetworkManager
 	if [[ $nm == yes ]]; then
-	sudo apt-get install network-manager network-manager-gnome -y
+		sudo apt-get install network-manager network-manager-gnome -y
 		if [[ -n "$(uname -a | grep Ubuntu)" ]]; then
 			for file in `find /etc/netplan/* -maxdepth 0 -type f -name *.yaml`; do
 				sudo mv $file $file.bak
