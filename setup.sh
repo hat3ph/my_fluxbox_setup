@@ -22,8 +22,8 @@ install () {
 			policykit-1-gnome dex gpicview geany gv flameshot feh -y
 		echo "startfluxbox" > $HOME/.xinitrc
   		# enable acpid
-    		sudo apt-get install acpid -y
-      		sudo systemctl enable acpid
+    		#sudo apt-get install acpid -y
+      		#sudo systemctl enable acpid
 	fi
 
 	# install theming
@@ -48,12 +48,11 @@ install () {
 		mkdir -p $HOME/.config/lxterminal/
 		cp /tmp/lxterminal/lxterminal.conf $HOME/.config/lxterminal/
 
-		# install dracula gtk theme
+		# install dracula themes
   		mkdir -p $HOME/.icons
     		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
       		tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
 
-  		# install dracula cursor theme
 		mkdir -p $HOME/.themes
 		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula.tar.xz
   		tar -xvf /tmp/Dracula.tar.xz -C $HOME/.themes
