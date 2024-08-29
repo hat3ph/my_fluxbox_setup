@@ -87,9 +87,9 @@ Mod1 Up :Exec $HOME/.local/bin/wpctl_audio.sh up
 Mod1 Down :Exec $HOME/.local/bin/wpctl_audio.sh down
 Mod1 M :Exec $HOME/.local/bin/wpctl_audio.sh mute
 Mod1 N :Exec $HOME/.local/bin/wpctl_audio.sh mic
-123 :Exec $HOME/.local/bin/wpctl_audio.sh up
-122 Up :Exec $HOME/.local/bin/wpctl_audio.sh down
-121 Up :Exec $HOME/.local/bin/wpctl_audio.sh mute
+#123 :Exec $HOME/.local/bin/wpctl_audio.sh up
+#122 :Exec $HOME/.local/bin/wpctl_audio.sh down
+#121 :Exec $HOME/.local/bin/wpctl_audio.sh mute
 
 # screen brightness keybinds
 233 :Exec $HOME/.local/bin/screen_brightness.sh up

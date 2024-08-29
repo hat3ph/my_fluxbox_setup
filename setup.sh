@@ -50,8 +50,8 @@ install () {
 
 		# install dracula themes
   		mkdir -p $HOME/.icons
-    		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
-      		tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
+    	wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula-cursors.tar.xz
+      	tar -xvf /tmp/Dracula-cursors.tar.xz -C $HOME/.icons
 
 		mkdir -p $HOME/.themes
 		wget -P /tmp https://github.com/dracula/gtk/releases/download/v4.0.0/Dracula.tar.xz
@@ -71,8 +71,8 @@ install () {
 		if [[ -d $HOME/.fluxbox ]]; then mv $HOME/.fluxbox $HOME/.fluxbox_`date +%Y_%d_%m_%H_%M_%S`; fi
 		mkdir -p $HOME/.fluxbox
 		cp -r ./fluxbox/* $HOME/.fluxbox/
-		sed -i 's/administrator/$USER/g' $HOME/.fluxbox/init
-		sed -i 's/administrator/$USER/g' $HOME/.fluxbox/startup
+		#sed -i 's/administrator/$USER/g' $HOME/.fluxbox/init
+		#sed -i 's/administrator/$USER/g' $HOME/.fluxbox/startup
 	fi
  
  	# install extra fluxbox styles
